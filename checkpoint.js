@@ -104,26 +104,24 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 
 function secuenciaHenry(obj, n) {
   // Tu código aca:
-  var henryZero = 0; //* f(0) será un número igual a la cantidad de propiedades del objeto que sean números
-  var henryOne = 0; //* f(1) será un número igual a la suma de las longitudes de arreglos que sean valores de alguna propiedad
+  var funcion1 = 0; //* f(0) será un número igual a la cantidad de propiedades del objeto que sean números
+  var funcion2 = 0; //* f(1) será un número igual a la suma de las longitudes de arreglos que sean valores de alguna propiedad
 
-  for (const propiedad in obj) { //* recorro el objeto con un FOR IN
+  for (var propiedad in obj) { //* recorro el objeto con un FOR IN
 
     // console.log(!isNaN(propiedad))
-  if (!isNaN(propiedad)) { //* pregunto si la propiedad es un numero
-    henryZero ++ //* SI es TRUE, incremento el valor en 1
+  if (!isNaN(propiedad)) { //* pregunto si la propiedad no es un numero
+    funcion1++ //* SI es TRUE, incremento el valor en 1
   };
-  if(Array.isArray(obj[propiedad])){
+  if(Array.isArray(obj[propiedad])){ //* pregunto si la propiedad es arreglo
     // console.log(obj[propiedad].length)
-    henryOne += obj[propiedad].length; //* sumo las longitudes de los arreglos que sean valores de alguna propiedad
+    funcion2 += obj[propiedad].length; //* sumo las longitudes de los arreglos que sean valores de alguna propiedad
   }
   }
-  // console.log("f(0) : " + henryZero)
-  // console.log("f(1) : " + henryOne)
 
-  if(n == 0) return henryZero; //* condicion de corte
+  if(n == 0) return funcion1; //* condicion de corte
 
-  if(n == 1) return henryOne; //* condicion de corte
+  if(n == 1) return funcion2; //* condicion de corte
 
   if(n < 0) return null; //* Para números negativos de n debe devolver null
   
