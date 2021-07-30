@@ -424,7 +424,7 @@ var binarySearch = function (array, posicion, inicio = 0, final = array.length -
 }
 
 
-//* EJERCICIO 9 --> PENDIENTE
+//* EJERCICIO 9 --> ME QUEDE SIN TIEMPO....
 // Ordená un arreglo de objetos usando un bubble sort pero con algunas particularidades.
 // Además del arreglo a ordenar (array) la función va a recibir como parámetro una función
 // que va a ser quien va a determinar si un elemento es "mayor" al otro para determinar su
