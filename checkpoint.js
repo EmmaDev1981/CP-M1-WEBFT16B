@@ -102,18 +102,16 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 // Para números negativos de n debe devolver null
 // PISTA: Pueden utilizar el método Object.keys() para f(1)
 
-function secuenciaHenry(obj, n) {
+function secuenciaHenry(obj, n,funcion1 = 0, funcion2 = 0 ) {
   // Tu código aca:
-  var funcion1 = 0; //* f(0) será un número igual a la cantidad de propiedades del objeto que sean números
-  var funcion2 = 0; //* f(1) será un número igual a la suma de las longitudes de arreglos que sean valores de alguna propiedad
 
-  for (var propiedad in obj) { //* recorro el objeto con un FOR IN
+  for (var propiedad in obj) { //* recorro el objeto con un FOR IN para sumar la cantidad de propiedades que tenga
 
     // console.log(!isNaN(propiedad))
   if (!isNaN(propiedad)) { //* pregunto si la propiedad no es un numero
     funcion1++ //* SI es TRUE, incremento el valor en 1
   };
-  if(Array.isArray(obj[propiedad])){ //* pregunto si la propiedad es arreglo
+  if(Array.isArray(obj[propiedad])){ //* pregunto si la propiedad es un arreglo
     // console.log(obj[propiedad].length)
     funcion2 += obj[propiedad].length; //* sumo las longitudes de los arreglos que sean valores de alguna propiedad
   }
