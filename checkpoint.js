@@ -51,7 +51,7 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
     // console.log(genealogyTree[genealogyTree[ancestor][index]].length > 0)
     if (genealogyTree[genealogyTree[ancestor][index]].length > 0) { //* si la propiedad no esta vacia (osea que tiene descendientes)
 
-      return isAncestor(genealogyTree, genealogyTree[ancestor][index], descendant); //* aplico recursividad para iterar por los array del objeto
+      return isAncestor(genealogyTree, genealogyTree[ancestor][index], descendant); //* aplico recursividad para iterar por el array del objeto
 
     }
 
@@ -70,7 +70,7 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 }
 
 
-//* EJERCICIO 2 --> ME QUEDE SIN TIEMPO....
+//* EJERCICIO 2 --> OK
 // Secuencia inventada: f(n) = f(n-1) x f(n-2) - f(n-2)
 // Siendo f, secuenciaHenry.
 // Donde las primeras dos posiciones son dadas por el parametro recibidos y a partir de
@@ -102,28 +102,24 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 // Para números negativos de n debe devolver null
 // PISTA: Pueden utilizar el método Object.keys() para f(1)
 
-function secuenciaHenry(obj, n,funcion1 = 0, funcion2 = 0 ) {
+function secuenciaHenry(obj, n, funcion1=0) {
   // Tu código aca:
 
-  for (var propiedad in obj) { //* recorro el objeto con un FOR IN para sumar la cantidad de propiedades que tenga
+  var funcion0 = obj.first //* declaro la variable para tener el valor de f(0)
+  // console.log(funcion0)
 
-    // console.log(!isNaN(propiedad))
-  if (!isNaN(propiedad)) { //* pregunto si la propiedad no es un numero
-    funcion1++ //* SI es TRUE, incremento el valor en 1
-  };
-  if(Array.isArray(obj[propiedad])){ //* pregunto si la propiedad es un arreglo
-    // console.log(obj[propiedad].length)
-    funcion2 += obj[propiedad].length; //* sumo las longitudes de los arreglos que sean valores de alguna propiedad
-  }
+  for (var propiedad in obj) { //* recorro el objeto con un FOR IN para sumar la cantidad de propiedades que tenga el objeto
+    funcion1++ //* con cada vuelta del ciclo FOR IN incremento en 1 el contador f(1)
+    // console.log(funcion1)
   }
 
-  if(n == 0) return funcion1; //* condicion de corte
+  if(n === 0) return funcion0; //* Debería devolver 2 cuando n es 0
 
-  if(n == 1) return funcion2; //* condicion de corte
+  if(n === 1) return funcion1; //* Debería devolver 9 cuando n es 1
 
-  if(n < 0) return null; //* Para números negativos de n debe devolver null
+  if(n < 0) return null; //* Debería devolver null cuando n es negativo
   
-  return secuenciaHenry(obj,n-1) * secuenciaHenry(obj,n-2) - secuenciaHenry(obj, n-2); //* Aplico recursividad
+  return secuenciaHenry(obj,n-1) * secuenciaHenry(obj,n-2) - secuenciaHenry(obj, n-2); //* Aplico recursividad sobre la formula HENRY
 
 }
 
@@ -192,14 +188,14 @@ LinkedList.prototype.switchPos = function(pos1, pos2){
   var nodoAnt1; //* declaro variable para manejar la posicion anterior del nodo1
   var nodoAnt2; //* declaro variable para manejar la posicion anterior del nodo2
   
-  for (let i=1; i <= pos1; i++) { //*igualo la posicion del notoAnt1 con nodoPos1, y el nodo posterior avanza un lugar.
+  for (let i=1; i <= pos1; i++) { //*igualo la posicion del nodoAnt1 con nodoPos1, y el nodo posterior avanza un lugar.
     nodoAnt1 = nodoPos1;
     nodoPos1 = nodoPos1.next;
     // console.log(nodoAnt1)
     // console.log(nodoPos1)
   }
   
-  for (let i=1; i <= pos2; i++) {//*igualo la posicion del notoAnt2 con nodoPos2, y el nodo posterior avanza un lugar.
+  for (let i=1; i <= pos2; i++) {//*igualo la posicion del nodoAnt2 con nodoPos2, y el nodo posterior avanza un lugar.
     nodoAnt2 = nodoPos2;
     nodoPos2 = nodoPos2.next;
     // console.log(nodoAnt2)
@@ -377,7 +373,7 @@ BinarySearchTree.prototype.height = function() {
 
   if(!this.left) return 1 + this.right.height() //* si no tiene nodos a su izquierda, utilizo recursiva hacia la derecha
 
-  return 1 + Math.max(this.left.height(), this.right.height()) //* con la pista del enunciado, utilizo el metodo Math.max para comparar las dos ramas, y para el HEIGHT (NIVEL) de la mas profunda
+  return 1 + Math.max(this.left.height(), this.right.height()) //* con la pista del enunciado, utilizo el metodo Math.max para comparar las dos ramas, y paso el HEIGHT (NIVEL) de la mas profunda
 
 }
 
@@ -401,13 +397,13 @@ BinarySearchTree.prototype.height = function() {
 var binarySearch = function (array, posicion, inicio = 0, final = array.length - 1) {
   // Tu código aca:
 
-  var medio = Math.floor((inicio + final) / 2); //* defino el medio del array.
+  var medio = Math.floor((inicio + final) / 2); //* defino el centro del array.
 
-  if (posicion === array[medio]) { //* si la posicion coincide con el medio, ya lo encontré, retorno la posicion.
+  if (posicion === array[medio]) { //* si la posicion coincide con el centro, ya lo encontré, retorno esa posicion.
     return medio;
   }
 
-  if (inicio >= final) {  //* si el valor pedido, es mayor al tamaño del array, es porque no esta, retorna -1.
+  if (inicio >= final) {  //* cuando el inicio es mayor o igual al final, termino de recorrerlo, y es porque no esta, retorna -1.
     return -1;
   }
 
@@ -447,16 +443,16 @@ var specialSort = function(array, orderFunction) {
   // Tu código aca:
 
   do {
-    var huboCambios = false; //* declaro una variable en false como FLAG; y la paso a FALSE, si hubo algun cambio
+    var huboCambios = false; //* declaro una variable en FALSE como FLAG; si hubo algun cambio entra en TRUE, y la vuelvo a pasar a FALSE
 
-    for (var i = 0; i < array.length - 1; i++) { //* Itero sobre el array, length -1, para no iterar fuera del arreglo con array[i+1]
+    for (var i = 0; i < array.length - 1; i++) { //* Itero sobre el array, con length -1, para no iterar fuera del arreglo uso array[i+1]
       
       // console.log(orderFunction(array[i], array[i + 1]))
-      if (orderFunction(array[i], array[i + 1]) === -1) { //* Aplico el Call Back al arreglo, que devuelve 1 ó -1, si estan bien ordenador y no
+      if (orderFunction(array[i], array[i + 1]) === -1) { //* Aplico el CallBack al arreglo, que devuelve 1 ó -1, si estan bien ordenados o no
         // console.log(orderFunction(array[i], array[i + 1]))
-        [array[i], array[i+1]] = [array [i+1], array[i]] //* Si no esta ordenado (condicion === -1), cambio de lugar las posiciones en el array
+        [array[i], array[i+1]] = [array [i+1], array[i]] //* Si no esta ordenado (condicion === -1), cambio de lugar las posiciones en el array (SWAP)
 
-        huboCambios = true //* vuelvo a setear "el flag" si hubo cambios, para saber cuando debo terminar de iterar con el ciclo WHILE al no entrar en la condicion del IF
+        huboCambios = true //* vuelvo a setear "el flag" en TRUE si hubo cambios, para saber cuando debo terminar de iterar con el ciclo WHILE al ya no entrar en la condicion del IF
       }
     }
   } while (huboCambios) //* mientras haya cambios sigo iterando.
@@ -497,15 +493,15 @@ var specialSort = function(array, orderFunction) {
 function closureDetect(symptoms, min) {
   // Tu código aca:
   
-  return function(persona){ //* como es un closure, retorno una funcion.
+  return function(persona){ //* como es un closure, empiezo retornando una funcion.
 
-  var contador=0; //* declaro una variable en cero
+  var contador=0; //* declaro una variable en cero, que va a ser mi contador de sintomas.
   
   for (var sintoma in symptoms) { //* utilizo un FOR IN para recorrer los sintomas del objeto y verifico cuantos sintomas tiene cada persona incrementando la variable contador
   // console.log(symptoms.includes(persona.symptoms[sintoma]))
-  if(symptoms.includes(persona.symptoms[sintoma])) { //* utilizo el metodo includes() para validar si el obejeto incluye esos sintomas, si es TRUE; incremento el contador en 1
+  if(symptoms.includes(persona.symptoms[sintoma])) { //* utilizo el metodo includes() para validar si el obejeto tiene esos sintomas, si es TRUE; incremento el contador en 1
   // console.log(symptoms.includes(persona.symptoms[sintoma]))
-   contador++;
+   contador++; // * incremento en 1 por cada sintoma de la persona
   }
 
   }
@@ -516,6 +512,8 @@ function closureDetect(symptoms, min) {
 }
 
 }
+
+//* COLORIN COLORADO..... ESTE CHECKPOINT SE HA TERMINADO.... :))
 
 // -------------------
 
