@@ -413,7 +413,7 @@ var specialSort = function(array, orderFunction) {
 
 //* ----- Closures -----
 
-//* EJERCICIO 10
+//* EJERCICIO 10 --> OK
 // Implementar la función closureDetect que recibe como parámetro:
 //  - Un array (symptoms) que va a contener en cada posición un string representando un
 //    síntoma médico de alguna enfermedad
@@ -441,6 +441,24 @@ var specialSort = function(array, orderFunction) {
 
 function closureDetect(symptoms, min) {
   // Tu código aca:
+  
+  return function(persona){ //* como es un closure, retorno una funcion.
+
+  var contador=0; //* declaro una variable en cero
+  
+  for (var sintoma in symptoms) { //* utilizo un FOR IN para recorrer los sintomas del objeto y verifico cuantos sintomas tiene cada persona incrementando la variable contador
+  // console.log(symptoms.includes(persona.symptoms[sintoma]))
+  if(symptoms.includes(persona.symptoms[sintoma])) { //* utilizo el metodo includes() para comparar
+  // console.log(symptoms.includes(persona.symptoms[sintoma]))
+   contador++;
+  }
+
+  }
+  //console.log(contador)
+  if(contador >= min) return true; //* si los sintomas que tiene, son mayores o iguales a los que se pasan como argumento para considerarlo enfermo, retorno TRUE
+
+  return false; //* sino, retorno FALSE
+}
 
 }
 
