@@ -424,7 +424,7 @@ var binarySearch = function (array, posicion, inicio = 0, final = array.length -
 }
 
 
-//* EJERCICIO 9 --> ME QUEDE SIN TIEMPO....
+//* EJERCICIO 9 --> OK
 // Ordená un arreglo de objetos usando un bubble sort pero con algunas particularidades.
 // Además del arreglo a ordenar (array) la función va a recibir como parámetro una función
 // que va a ser quien va a determinar si un elemento es "mayor" al otro para determinar su
@@ -449,6 +449,24 @@ var binarySearch = function (array, posicion, inicio = 0, final = array.length -
 
 var specialSort = function(array, orderFunction) {
   // Tu código aca:
+
+  do {
+    var huboCambios = false; //* declaro una variable en false como FLAG; y la paso a FALSE, si hubo algun cambio
+
+    for (var i = 0; i < array.length - 1; i++) { //* Itero sobre el array, length -1, para no iterar fuera del arreglo con array[i+1]
+      
+      // console.log(orderFunction(array[i], array[i + 1]))
+      if (orderFunction(array[i], array[i + 1]) === -1) { //* Aplico el Call Back al arreglo, que devuelve 1 ó -1, si estan bien ordenador y no
+        // console.log(orderFunction(array[i], array[i + 1]))
+        [array[i], array[i+1]] = [array [i+1], array[i]] //* Si no esta ordenado (condicion === -1), cambio de lugar las posiciones en el array
+
+        huboCambios = true //* vuelvo a setear "el flag" si hubo cambios, para saber cuando debo terminar de iterar con el ciclo WHILE al no entrar en la condicion del IF
+      }
+    }
+  } while (huboCambios) //* mientras haya cambios sigo iterando.
+
+  // console.log(array)
+  return array; //* retorno el arreglo ordenado segun el CB
 
 }
 
