@@ -70,7 +70,7 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 }
 
 
-//* EJERCICIO 2 --> PENDIENTE
+//* EJERCICIO 2 --> ME QUEDE SIN TIEMPO....
 // Secuencia inventada: f(n) = f(n-1) x f(n-2) - f(n-2)
 // Siendo f, secuenciaHenry.
 // Donde las primeras dos posiciones son dadas por el parametro recibidos y a partir de
@@ -104,6 +104,30 @@ var isAncestor = function(genealogyTree, ancestor, descendant) {
 
 function secuenciaHenry(obj, n) {
   // Tu código aca:
+  var henryZero = 0; //* f(0) será un número igual a la cantidad de propiedades del objeto que sean números
+  var henryOne = 0; //* f(1) será un número igual a la suma de las longitudes de arreglos que sean valores de alguna propiedad
+
+  for (const propiedad in obj) { //* recorro el objeto con un FOR IN
+
+    // console.log(!isNaN(propiedad))
+  if (!isNaN(propiedad)) { //* pregunto si la propiedad es un numero
+    henryZero ++ //* SI es TRUE, incremento el valor en 1
+  };
+  if(Array.isArray(obj[propiedad])){
+    // console.log(obj[propiedad].length)
+    henryOne += obj[propiedad].length; //* sumo las longitudes de los arreglos que sean valores de alguna propiedad
+  }
+  }
+  // console.log("f(0) : " + henryZero)
+  // console.log("f(1) : " + henryOne)
+
+  if(n == 0) return henryZero; //* condicion de corte
+
+  if(n == 1) return henryOne; //* condicion de corte
+
+  if(n < 0) return null; //* Para números negativos de n debe devolver null
+  
+  return secuenciaHenry(obj,n-1) * secuenciaHenry(obj,n-2) - secuenciaHenry(obj, n-2); //* Aplico recursividad
 
 }
 
@@ -365,7 +389,7 @@ BinarySearchTree.prototype.height = function() {
 // ---------------
 
 
-//* Ejercicio 8
+//* Ejercicio 8 --> OK
 // Dado un arreglo ordenado, encontrar el índice de un elemento específico pasado como parámetro
 // utilizando el método conocido como búsqueda binaria. En el caso de que el número buscado no se encuentre
 // en el array devolver -1.
@@ -378,12 +402,29 @@ BinarySearchTree.prototype.height = function() {
 //    [Donde 2 sería el número sobre el cuál queremos saber su posición en el array]
 
 
-var binarySearch = function (array, target) {
+var binarySearch = function (array, posicion, inicio = 0, final = array.length - 1) {
   // Tu código aca:
+
+  var medio = Math.floor((inicio + final) / 2); //* defino el medio del array.
+
+  if (posicion === array[medio]) { //* si la posicion coincide con el medio, ya lo encontré, retorno la posicion.
+    return medio;
+  }
+
+  if (inicio >= final) {  //* si el valor pedido, es mayor al tamaño del array, es porque no esta, retorna -1.
+    return -1;
+  }
+
+  if (posicion < array[medio]){ //* si la posicion pedida, es menor que el valor del centro del arreglo, lo reccorro hacia la izquierda (menores)
+    return binarySearch(array, posicion, inicio, medio - 1) //* aplico recursividad hacia la izquierda del array
+  } else { //* caso contrario, es mayor, lo recorro hacia la derecha (mayores)
+    return binarySearch(array, posicion, medio + 1, final) //* aplico recursividad hacia la derecha del array
+  }
 
 }
 
-//* EJERCICIO 9
+
+//* EJERCICIO 9 --> PENDIENTE
 // Ordená un arreglo de objetos usando un bubble sort pero con algunas particularidades.
 // Además del arreglo a ordenar (array) la función va a recibir como parámetro una función
 // que va a ser quien va a determinar si un elemento es "mayor" al otro para determinar su
@@ -448,7 +489,7 @@ function closureDetect(symptoms, min) {
   
   for (var sintoma in symptoms) { //* utilizo un FOR IN para recorrer los sintomas del objeto y verifico cuantos sintomas tiene cada persona incrementando la variable contador
   // console.log(symptoms.includes(persona.symptoms[sintoma]))
-  if(symptoms.includes(persona.symptoms[sintoma])) { //* utilizo el metodo includes() para comparar
+  if(symptoms.includes(persona.symptoms[sintoma])) { //* utilizo el metodo includes() para validar si el obejeto incluye esos sintomas, si es TRUE; incremento el contador en 1
   // console.log(symptoms.includes(persona.symptoms[sintoma]))
    contador++;
   }
